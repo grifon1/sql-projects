@@ -4,6 +4,8 @@ This project is designed to demonstrate the fundamental understanding of SQL usi
 
 The original project requirements may be found [here](https://discuss.codecademy.com/t/data-science-independent-project-5-analyze-airfare-data/419949).
 
+The raw data needed to complete this project (`airfare_data.csv`) may also be downloaded from this repository.
+
 ## Objective ##
 --------------------
 As the data analyst of a major airline, you are presented with airfare data of the top 1,000 contiguous state city-pair markets. Today we will help them analyze this data and identify trends.
