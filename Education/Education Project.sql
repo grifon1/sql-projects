@@ -128,14 +128,35 @@ FROM highest_results
 GROUP BY "Math vs. Reading";
 
 
------------------What is the average proficiency on state assessment exams for each zip code, and how do they compare to other zip codes in the same state?
+--What is the average proficiency on state assessment exams for each zip code, and how do they compare to other zip codes in the same state?
+
+--First, we make a temporary table of Math and Reading scores by state where any schools without math and reading scores are excluded.
 WITH state_avg AS (
-	SELECT highschool.state_code, ROUND(MIN(pct_proficient_math),2) AS 'State Minimum Math Score', ROUND(AVG(pct_proficient_math),2) AS 'State Average Math Score', ROUND(MAX(pct_proficient_math),2) AS 'State Maximum Math Score', ROUND(MIN(pct_proficient_reading),2) AS 'State Minimum Reading Score',  ROUND(AVG(pct_proficient_reading),2) AS 'State Average Reading Score', ROUND(MAX(pct_proficient_reading),2) AS 'State Maximum Reading Score'
+	SELECT 
+		highschool.state_code, 
+		ROUND(MIN(pct_proficient_math),2) AS 'State Minimum Math Score', 
+		ROUND(AVG(pct_proficient_math),2) AS 'State Average Math Score', 
+		ROUND(MAX(pct_proficient_math),2) AS 'State Maximum Math Score', 
+		ROUND(MIN(pct_proficient_reading),2) AS 'State Minimum Reading Score',  
+		ROUND(AVG(pct_proficient_reading),2) AS 'State Average Reading Score', 
+		ROUND(MAX(pct_proficient_reading),2) AS 'State Maximum Reading Score'
 	FROM highschool
 	WHERE pct_proficient_math != 'NULL' AND pct_proficient_reading != 'NULL'
 	GROUP BY highschool.state_code
 	)
-SELECT highschool.state_code, zip_code, pct_proficient_math AS 'Math Score of Zip Code', pct_proficient_reading AS 'Reading Score of Zip Code', state_avg.'State Minimum Math Score', state_avg.'State Average Math Score', state_avg.'State Maximum Math Score', state_avg.'State Minimum Reading Score', state_avg.'State Average Reading Score', state_avg.'State Maximum Reading Score'
+--Next, we join the state average test scores table with the zip code-level highschool assessments to see how more local
+--highschools compare to the rest of the state.
+SELECT 
+	highschool.state_code, 
+	zip_code, 
+	ROUND((pct_proficient_math), 1) AS 'Math Score of Zip Code', 
+	ROUND((pct_proficient_reading), 1) AS 'Reading Score of Zip Code', 
+	state_avg.'State Minimum Math Score', 
+	state_avg.'State Average Math Score', 
+	state_avg.'State Maximum Math Score', 
+	state_avg.'State Minimum Reading Score', 
+	state_avg.'State Average Reading Score', 
+	state_avg.'State Maximum Reading Score'
 FROM highschool
 INNER JOIN state_avg ON state_avg.state_code = highschool.state_code
 GROUP BY highschool.zip_code

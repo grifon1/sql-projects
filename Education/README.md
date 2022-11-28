@@ -477,3 +477,95 @@ Your advice is needed by a team of policymakers seeking to make more informed de
 
     </p>
     </details>
+6. What is the average proficiency on state assessment exams for each zip code, and how do they compare to other zip codes in the same state?
+
+    Code:
+    ```
+    --First, we make a temporary table of Math and Reading scores by state where any schools without math and reading scores are excluded.
+    WITH state_avg AS (
+        SELECT 
+            highschool.state_code, 
+            ROUND(MIN(pct_proficient_math),2) AS 'State Minimum Math Score', 
+            ROUND(AVG(pct_proficient_math),2) AS 'State Average Math Score', 
+            ROUND(MAX(pct_proficient_math),2) AS 'State Maximum Math Score', 
+            ROUND(MIN(pct_proficient_reading),2) AS 'State Minimum Reading Score',  
+            ROUND(AVG(pct_proficient_reading),2) AS 'State Average Reading Score', 
+            ROUND(MAX(pct_proficient_reading),2) AS 'State Maximum Reading Score'
+        FROM highschool
+        WHERE pct_proficient_math != 'NULL' AND pct_proficient_reading != 'NULL'
+        GROUP BY highschool.state_code
+        )
+    --Next, we join the state average test scores table with the zip code-level highschool assessments to see how more local
+    --highschools compare to the rest of the state.
+    SELECT 
+        highschool.state_code, 
+        zip_code, 
+        ROUND((pct_proficient_math), 1) AS 'Math Score of Zip Code', 
+        ROUND((pct_proficient_reading), 1) AS 'Reading Score of Zip Code', 
+        state_avg.'State Minimum Math Score', 
+        state_avg.'State Average Math Score', 
+        state_avg.'State Maximum Math Score', 
+        state_avg.'State Minimum Reading Score', 
+        state_avg.'State Average Reading Score', 
+        state_avg.'State Maximum Reading Score'
+    FROM highschool
+    INNER JOIN state_avg ON state_avg.state_code = highschool.state_code
+    GROUP BY highschool.zip_code
+    ORDER BY highschool.state_code, zip_code;
+    ```
+
+    <details> <summary> Click here for results </summary> 
+    <p>
+
+    ### Below are the truncated results showing only Alaskan zip codes. With these results, we could show policymakers in the state which zip codes may need more funding or to start focused education initiatives in different parts of the state. ###
+
+
+    state_code|zip_code|Math Score of Zip Code|Reading Score of Zip Code|State Minimum Math Score|State Average Math Score|State Maximum Math Score|State Minimum Reading Score|State Average Reading Score|State Maximum Reading Score
+    --- | --- | --- | ---| --- | --- | --- | --- | --- | ---
+    AK|	99502|	28|	32|	7.5|	24.65|	47|	10|	33.58|	75
+    AK|	99503|	47|	67|	7.5|	24.65|	47|	10|	33.58|	76
+    AK|	99504|	20|	17|	7.5|	24.65|	47|	10|	33.58|	77
+    AK|	99507|	27|	31|	7.5|	24.65|	47|	10|	33.58|	78
+    AK|	99508|	20|	24|	7.5|	24.65|	47|	10|	33.58|	79
+    AK|	99516|	37|	45|	7.5|	24.65|	47|	10|	33.58|	80
+    AK|	99517|	24|	30|	7.5|	24.65|	47|	10|	33.58|	81
+    AK|	99557|	25|	25|	7.5|	24.65|	47|	10|	33.58|	82
+    AK|	99559|	17|	17|	7.5|	24.65|	47|	10|	33.58|	83
+    AK|	99567|	33|	37|	7.5|	24.65|	47|	10|	33.58|	84
+    AK|	99574|	24.5|	24.5|	7.5|	24.65|	47|	10|	33.58|	85
+    AK|	99577|	40|	45|	7.5|	24.65|	47|	10|	33.58|	86
+    AK|	99588|	24.5|	34.5|	7.5|	24.65|	47|	10|	33.58|	87
+    AK|	99603|	32|	52|	7.5|	24.65|	47|	10|	33.58|	88
+    AK|	99607|	10|	10|	7.5|	24.65|	47|	10|	33.58|	89
+    AK|	99611|	27|	37|	7.5|	24.65|	47|	10|	33.58|	90
+    AK|	99615|	23|	41|	7.5|	24.65|	47|	10|	33.58|	91
+    AK|	99633|	10|	10|	7.5|	24.65|	47|	10|	33.58|	92
+    AK|	99645|	24|	36|	7.5|	24.65|	47|	10|	33.58|	93
+    AK|	99652|	12|	22|	7.5|	24.65|	47|	10|	33.58|	94
+    AK|	99654|	24|	26|	7.5|	24.65|	47|	10|	33.58|	95
+    AK|	99664|	22|	42|	7.5|	24.65|	47|	10|	33.58|	96
+    AK|	99669|	17|	32|	7.5|	24.65|	47|	10|	33.58|	97
+    AK|	99676|	32|	52|	7.5|	24.65|	47|	10|	33.58|	98
+    AK|	99685|	44.5|	44.5|	7.5|	24.65|	47|	10|	33.58|	99
+    AK|	99686|	27|	47|	7.5|	24.65|	47|	10|	33.58|	100
+    AK|	99701|	26|	30|	7.5|	24.65|	47|	10|	33.58|	101
+    AK|	99702|	27|	47|	7.5|	24.65|	47|	10|	33.58|	102
+    AK|	99705|	12|	30|	7.5|	24.65|	47|	10|	33.58|	103
+    AK|	99709|	32|	43|	7.5|	24.65|	47|	10|	33.58|	104
+    AK|	99723|	22|	17|	7.5|	24.65|	47|	10|	33.58|	105
+    AK|	99737|	37|	42|	7.5|	24.65|	47|	10|	33.58|	106
+    AK|	99741|	7.5|	12|	7.5|	24.65|	47|	10|	33.58|	107
+    AK|	99762|	12|	22|	7.5|	24.65|	47|	10|	33.58|	108
+    AK|	99801|	41|	38|	7.5|	24.65|	47|	10|	33.58|	109
+    AK|	99827|	24.5|	34.5|	7.5|	24.65|	47|	10|	33.58|	110
+    AK|	99829|	10|	10|	7.5|	24.65|	47|	10|	33.58|	111
+    AK|	99833|	42|	37|	7.5|	24.65|	47|	10|	33.58|	112
+    AK|	99835|	27|	27|	7.5|	24.65|	47|	10|	33.58|	113
+    AK|	99901|	32|	41|	7.5|	24.65|	47|	10|	33.58|	114
+    AK|	99921|	24.5|	44.5|	7.5|	24.65|	47|	10|	33.58|	115
+    AK|	99926|	15|	15|	7.5|	24.65|	47|	10|	33.58|	116
+    AK|	99929|	24.5|	34.5|	7.5|	24.65|	47|	10|	33.58|	117
+
+
+    </p>
+    </details>
