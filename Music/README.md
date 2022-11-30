@@ -317,9 +317,9 @@ You are the lead data analyst for a popular music and media store. Help them ana
     <details> <summary> Click here for results</summary> 
     <p>
 
-    ### Below is the truncated results table. While we can make a general observation about the relationship of the number of tracks in an album to its sales using this table alone, we do not have statstics to back us. ###
+    ### Below is the truncated results table. While we can make a general observation about the relationship of the number of tracks in an album to its sales using this table, we do not have statistics to back us. ###
 
-    ### A Pearson's R correlation was done to find whether the length of an album tends to generate more sales. Album length and sales were found to be strong correlated r(304) = .81, P < .001 ###
+    ### A Pearson's R correlation was done to find whether the length of an album tends to generate more sales. Album length and sales were found to be strongly positively correlated r(304) = .81, P < .001 ###
 
     AlbumId|	AlbumTitle|	NumberOfTracks|	Sales of Album
     ---|	---|	---|	---
