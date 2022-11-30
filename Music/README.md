@@ -249,7 +249,22 @@ You are the lead data analyst for a popular music and media store. Help them ana
         ON RevenueByCustomer.SupportRepId = employees.employeeid
     GROUP BY employees.EmployeeId;
     ```
+    
     <details> <summary> Click here customer support results</summary> 
+    <p>
+
+    ### Our employee Jane supported the most customers ###
+
+    SuportRepId|	LastName|	FirstName|	CustomersSupported
+    ---|	---|	---|	---
+    3|	Peacock|	Jane|	21
+    4|	Park|	Margaret|	20
+    5|	Johnson|	Steve|	18
+
+    </p>
+    </details>
+
+    <details> <summary> Click here salesperson revenue results</summary> 
     <p>
 
     ### Our employee Jane has the highest sales revenue of the sales staff. ###
@@ -261,20 +276,6 @@ You are the lead data analyst for a popular music and media store. Help them ana
     5|	Johnson|	Steve|	720.16|	40.01
 
 
-
-    </p>
-    </details>
-
-    <details> <summary> Click here salesperson revenue results</summary> 
-    <p>
-
-    ### Our employee Jane has the highest sales revenue of the sales staff. ###
-
-    SuportRepId|	LastName|	FirstName|	CustomersSupported
-    ---|	---|	---|	---
-    3|	Peacock|	Jane|	21
-    4|	Park|	Margaret|	20
-    5|	Johnson|	Steve|	18
 
     </p>
     </details>
