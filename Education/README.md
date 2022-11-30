@@ -4,7 +4,7 @@ This project is designed to demonstrate the fundamental understanding of SQL usi
 
 The original project requirements may be found [here](https://discuss.codecademy.com/t/data-science-independent-project-3-education-census-data/419947).
 
-The raw data needed to complete this project (`public_hx_data.csv` and `census_data.csv`) may also be downloaded from this repository.
+The raw data needed to complete this project (`public_hs_data.csv` and `census_data.csv`) may also be downloaded from this repository.
 
 ## Objective ##
 ---------------------------
@@ -12,7 +12,6 @@ Your advice is needed by a team of policymakers seeking to make more informed de
 
 ## Tasks ##
 ------------------
-### Exploration ###
 1. How many public high schools are in each zip code? In each state?
 
     Code:
