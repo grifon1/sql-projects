@@ -1,4 +1,5 @@
---First create the table and assign data type for each variable.  
+--Q1. Create a table called stocks where you will be inserting your data.
+--A1. First create the table and assign data type for each variable.  
 CREATE TABLE IF NOT EXISTS stocks (
 	datetime TEXT,
 	symbol TEXT,
@@ -9,13 +10,12 @@ CREATE TABLE IF NOT EXISTS stocks (
 	high NUMERIC,
 	low NUMERIC
 );
+
 --Next, we add in the historical price data for our 10 stocks.
 INSERT INTO stocks
 VALUES (
-'2022-08-22 00:00:00','AAPL','AAPL',167.57,69026810,169.69,169.86,167.14);
-INSERT INTO stocks
-VALUES (
-'2022-08-19 00:00:00','AAPL','AAPL',171.52,70346300,173.03,173.74,171.31),
+'2022-08-22 00:00:00','AAPL','AAPL',167.57,69026810,169.69,169.86,167.14)
+('2022-08-19 00:00:00','AAPL','AAPL',171.52,70346300,173.03,173.74,171.31),
 ('2022-08-18 00:00:00','AAPL','AAPL',174.15,62290080,173.75,174.9,173.12),
 ('2022-08-17 00:00:00','AAPL','AAPL',174.55,79542040,172.77,176.15,172.57),
 ('2022-08-16 00:00:00','AAPL','AAPL',173.03,56377050,172.78,173.71,171.66),
@@ -225,13 +225,13 @@ VALUES (
 ('2022-07-26 00:00:00','NFLX','NFLX',213.91,9508532,216.66,219.39,211.64),
 ('2022-07-25 00:00:00','NFLX','NFLX',218.51,10935250,221.31,225.23,216.35);
 
---Q1. What are the distinct stocks in the table?
---A1. Apple, Starbucks, Microsoft, Cisco, Qualcomm, Meta, Amazon, Tesla, AMD, and Netflix
+--Q2. What are the distinct stocks in the table?
+--A2. Apple, Starbucks, Microsoft, Cisco, Qualcomm, Meta, Amazon, Tesla, AMD, and Netflix
 SELECT DISTINCT(symbol)
 FROM stocks;
 
---Q2. Query all data for a single stock. Do you notice any overall trends?
---A2. Apple stock is trending steadily upwards in price. From July 25th through August 22nd, the average stock price was $165.41. 
+--Q3. Query all data for a single stock. Do you notice any overall trends?
+--A3. Apple stock is trending steadily upwards in price. From July 25th through August 22nd, the average stock price was $165.41. 
 --    The Maximum price during a trade day was 176.15. The Minimum price during a trade day was $150.80.
 SELECT * FROM stocks
 WHERE symbol = "AAPL"
@@ -244,8 +244,8 @@ ORDER BY price desc;
 SELECT AVG(price), MAX(high), MIN(low) FROM stocks
 WHERE symbol = "AAPL";
 
---Q3. Which rows have a price above 100? Between 40 to 50, etc.?
---A3.All stocks except Starbucks, Cisco, and AMD had stock prices greater than 100. 
+--Q4. Which rows have a price above 100? Between 40 to 50, etc.?
+--A4.All stocks except Starbucks, Cisco, and AMD had stock prices greater than 100. 
 -----Cisco had stock prices mainly between 40 and 50 dollars. Tesla was the only stock that had prices greater than $500 per share.
 SELECT * FROM stocks
 WHERE price > 100;
@@ -260,8 +260,8 @@ SELECT * FROM stocks
 WHERE price > 500;
 
 
---Q4. Sort the table by price. What are the minimum and maximum prices?
---A4. The highest price between July 25th and August 22nd was on August 15th with Tesla's stock priced at $927.96 per share.
+--Q5. Sort the table by price. What are the minimum and maximum prices?
+--A5. The highest price between July 25th and August 22nd was on August 15th with Tesla's stock priced at $927.96 per share.
 ------The lowest price between July 25th and August 22nd was on July 26th with Cisco's stock price at $43.83 per share.
 SELECT * FROM stocks
 ORDER BY price desc
@@ -271,15 +271,15 @@ SELECT * FROM stocks
 ORDER BY price asc
 LIMIT 1;
 
---Q5. Explore using aggregate functions to look at key statistics about the data (eg. min, max, average)
---A5. This is a start, but it doesn't tell us much about these stocks unless they are separated from each other using a group by function.
+--Q6. Explore using aggregate functions to look at key statistics about the data (eg. min, max, average)
+--A6. This is a start, but it doesn't tell us much about these stocks unless they are separated from each other using a group by function.
 SELECT MAX(price) FROM stocks;
 SELECT MIN(price) FROM stocks;
 SELECT AVG(price) FROM stocks;
 SELECT SUM(volume) FROM stocks;
 
---Q6. Group the data by stock and repeat. How do the stocks compare to each other?
---A6. Aggregating data by stock, we see that Tesla, Microsoft, and Netflix have the top 3 stock prices during the time period.
+--Q7. Group the data by stock and repeat. How do the stocks compare to each other?
+--A7. Aggregating data by stock, we see that Tesla, Microsoft, and Netflix have the top 3 stock prices during the time period.
 ------Cisco, Starbucks, and AMD are the bottom 3 stock prices during the time period.
 ------AMD, Apple, and Amazon had the top 3 stock volume sold during the time period, while Starbucks, Qualcomm, and Netflix had the buttom 3 stock volume sold.
 SELECT MAX(price), symbol FROM stocks
@@ -300,8 +300,8 @@ ORDER BY SUM(volume) desc;
 
 
 
---Q7. Group the data by day or hour of day. Does day of week or time of day impact prices?
---A7. The highest average price occurred on Friday, on average, during the 21 trading days between July 25th and August 22nd. 
+--Q8. Group the data by day or hour of day. Does day of week or time of day impact prices?
+--A8. The highest average price occurred on Friday, on average, during the 21 trading days between July 25th and August 22nd. 
 ------This price was $226.32. Wednesday and Thursday's prices were less than $1 away from the Friday price
 ------The lowest average price occurred on Tuesday at $219.94.
 
@@ -315,15 +315,15 @@ GROUP BY strftime('%w', datetime)
 ORDER BY strftime('%w', datetime);
 
 
---Q8. Which of the rows have a price greater than the average of all prices in the dataset?
---A8. An embeded select statement in the where function lets use show only data where the price is higher than the overall average price.
+--Q9. Which of the rows have a price greater than the average of all prices in the dataset?
+--A9. An embeded select statement in the where function lets use show only data where the price is higher than the overall average price.
 SELECT * FROM stocks
 WHERE price > (SELECT AVG(price) FROM stocks)
 ORDER BY price desc;
 
 
---Q9.1 In addition to the built-in aggregate functions, explore ways to calculate other key statistics about the data, such as the median or variance.
---A9.1a This way ranks the price in order, giving them a percent rank. 
+--Q10.1 In addition to the built-in aggregate functions, explore ways to calculate other key statistics about the data, such as the median or variance.
+--A10.1a This way ranks the price in order, giving them a percent rank. 
 --------In a table with an even number of rows, you would need to take the average of the two values that border 0.50.
 --------Here, you will see that rows 105 and 106 are below and above the .50 mark, respectively. Therefore, you would add the two prices and divide by 2 to calculate the median
 SELECT symbol, 
@@ -334,7 +334,7 @@ PERCENT_RANK() OVER(
 FROM stocks;
 
 
---A9.1b This is a more automated way of finding out the median, but you need to change the number in the commented section based on whether the number of values in your table is odd or even.
+--A10.1b This is a more automated way of finding out the median, but you need to change the number in the commented section based on whether the number of values in your table is odd or even.
 SELECT AVG(price)
 FROM (SELECT price
 	FROM stocks
@@ -344,16 +344,16 @@ FROM (SELECT price
 			FROM stocks));
 			
 			
---Q9.2 Calculating Variance
+--Q10.2 Calculating Variance
 --Unable to calculate std deviation (which is just the square root of variance) because we lack the sqrt function in SQLite. Can possibly add it by using a compile-time function SQLITE_ENABLE_MATH_FUNCTIONS
 SELECT SUM((price-(SELECT AVG(price) FROM stocks))*
 			(price-(SELECT AVG(price) FROM stocks)) ) / (COUNT(price)-1) AS variance --Remove the -1 if calculating population variance. Leave it if doing sample variance.
 FROM stocks;
---A9.2. Variance for the overall stock price of this sample of stocks is 52244.76
---Used n-1 formula because this is a sample of stocks data, not a complete population containing ALL data.
+--A10.2. Variance for the overall stock price of this sample of stocks is 52244.76
+--------Used n-1 formula because this is a sample of stocks data, not a complete population containing ALL data.
 
 
---Q10. Refactor the data in 2 tables - stock_info to store general info about the stock itself (i.e. symbol, name) and stock_prices to store the collected data on price (i.e. symbol, datetime, price).
+--Q11. Refactor the data in 2 tables - stock_info to store general info about the stock itself (i.e. symbol, name) and stock_prices to store the collected data on price (i.e. symbol, datetime, price).
 CREATE TABLE IF NOT EXISTS stock_info AS 
 SELECT symbol, name
 FROM stocks;
