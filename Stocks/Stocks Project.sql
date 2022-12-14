@@ -241,22 +241,25 @@ SELECT * FROM stocks
 WHERE symbol = "AAPL"
 ORDER BY price desc;
 
-SELECT AVG(price), MAX(high), MIN(low) FROM stocks
+SELECT 
+	ROUND(AVG(price), 2) AS 'Avg Price' ,
+	MAX(high) AS 'Max Price' , 
+	MIN(low) AS 'Lowest Price' FROM stocks
 WHERE symbol = "AAPL";
 
 --Q4. Which rows have a price above 100? Between 40 to 50, etc.?
 --A4.All stocks except Starbucks, Cisco, and AMD had stock prices greater than 100. 
 -----Cisco had stock prices mainly between 40 and 50 dollars. Tesla was the only stock that had prices greater than $500 per share.
-SELECT * FROM stocks
+SELECT datetime, symbol, price FROM stocks
 WHERE price > 100;
 
-SELECT * FROM stocks
+SELECT datetime, symbol, price FROM stocks
 WHERE price < 100;
 
-SELECT * FROM stocks
+SELECT datetime, symbol, price FROM stocks
 WHERE price BETWEEN 40 AND 50;
 
-SELECT * FROM stocks
+SELECT datetime, symbol, price FROM stocks
 WHERE price > 500;
 
 
