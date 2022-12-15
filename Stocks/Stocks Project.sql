@@ -284,7 +284,7 @@ SELECT SUM(volume) FROM stocks;
 --Q7. Group the data by stock and repeat. How do the stocks compare to each other?
 --A7. Aggregating data by stock, we see that Tesla, Microsoft, and Netflix have the top 3 stock prices during the time period.
 ------Cisco, Starbucks, and AMD are the bottom 3 stock prices during the time period.
-------AMD, Apple, and Amazon had the top 3 stock volume sold during the time period, while Starbucks, Qualcomm, and Netflix had the buttom 3 stock volume sold.
+------AMD, Apple, and Amazon had the top 3 stock volume sold during the time period, while Starbucks, Qualcomm, and Netflix had the bottom 3 stock volume sold.
 SELECT MAX(price), symbol FROM stocks
 GROUP BY symbol
 ORDER BY MAX(price) desc;
@@ -293,7 +293,7 @@ SELECT MIN(price), symbol FROM stocks
 GROUP BY symbol
 ORDER BY MIN(price) asc;
 
-SELECT AVG(price), symbol FROM stocks
+SELECT ROUND(AVG(price),2) AS 'Avg Price', symbol FROM stocks
 GROUP BY symbol
 ORDER BY AVG(price) desc;
 
@@ -313,7 +313,10 @@ SELECT datetime, AVG(price) FROM stocks
 GROUP BY datetime
 ORDER BY datetime desc;
 --We use strftime to extract the day of the week from our datetime string to see if prices are higher on, say, Monday, than on Friday.
-SELECT strftime('%w', datetime) AS 'weekday', AVG(price) FROM stocks
+SELECT 
+	strftime('%w', datetime) AS 'Weekday', 
+	ROUND(AVG(price),2) AS 'Avg Daily Price' 
+FROM stocks
 GROUP BY strftime('%w', datetime)
 ORDER BY strftime('%w', datetime);
 
