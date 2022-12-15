@@ -749,5 +749,194 @@ You are asked by a company to help them make more informed decisions on investme
 
     </p>
     </details>
-
+------
+### Intermediate/Advanced Analysis ###
+6. Explore using aggregate functions to look at key statistics about the data.
     
+    Code:
+    ```
+    SELECT MAX(price) FROM stocks;
+
+    SELECT MIN(price) FROM stocks;
+
+    SELECT AVG(price) FROM stocks;
+
+    SELECT SUM(volume) FROM stocks;
+    ```
+
+    <details> <summary> Click here for results of the aggregate function queries. </summary> 
+    <p>
+
+    ### This is a start to describing the overall stocks data, but it doesn't tell us much about them unless they are separated from each other using a group by function. ###
+
+    |MAX(price)|
+    |---|
+    |927.96|
+
+    |MIN(price)|
+    |---|
+    |43.83|
+
+    |AVG(price)|
+    |---|
+    |223.97333|
+
+    |SUM(volume)|
+    |---|
+    |6925926375|
+
+
+    </p>
+    </details>
+
+7. Group the data by stock and repeat. How do the stocks compared to each other?
+
+    Code:
+    ```
+    SELECT MAX(price), symbol FROM stocks
+    GROUP BY symbol
+    ORDER BY MAX(price) desc;
+
+    SELECT MIN(price), symbol FROM stocks
+    GROUP BY symbol
+    ORDER BY MIN(price) asc;
+
+    SELECT ROUND(AVG(price),2) AS 'Avg Price', symbol FROM stocks
+    GROUP BY symbol
+    ORDER BY AVG(price) desc;
+
+    SELECT SUM(volume), symbol FROM stocks
+    GROUP BY symbol
+    ORDER BY SUM(volume) desc;
+    ```
+
+    <details> <summary> Click here for results of the max price for each stock. </summary> 
+    <p>
+
+    ### Aggregating the data by stock, we see that Tesla, Microsoft, and Netflix have the top 3 stock prices during the time period. ###
+
+    MAX(price)	|	symbol
+    ---	|	---
+    927.96	|	TSLA
+    293.47	|	MSFT
+    249.3	|	NFLX
+    180.89	|	META
+    174.55	|	AAPL
+    153.42	|	QCOM
+    144.78	|	AMZN
+    103.91	|	AMD
+    89.4	|	SBUX
+    49.37	|	CSCO
+
+
+
+    </p>
+    </details>
+
+    <details> <summary> Click here for results of the minimum price for each stock. </summary> 
+    <p>
+
+    ### Aggregating the data by stock, we see that Cisco, Starbucks, and AMD are the bottom 3 stock prices during the time period. ###
+
+    MIN(price)	|	symbol
+    ---	|	---
+    43.83	|	CSCO
+    80.31	|	SBUX
+    85.25	|	AMD
+    114.81	|	AMZN
+    141.61	|	QCOM
+    151.6	|	AAPL
+    159.1	|	META
+    213.91	|	NFLX
+    251.9	|	MSFT
+    776.58	|	TSLA
+
+
+
+
+    </p>
+    </details>
+
+    <details> <summary> Click here for results of the average price for each stock. </summary> 
+    <p>
+
+    ### Average stock price by company shows there were no big shakeups to a company's stock price that would shift the rankings differently than the maximum price above. ###
+
+    Avg Price	|	symbol
+    ---	|	---
+    878.05	|	TSLA
+    280.99	|	MSFT
+    232.83	|	NFLX
+    169.42	|	META
+    165.41	|	AAPL
+    148.6	|	QCOM
+    135.93	|	AMZN
+    96.74	|	AMD
+    85.84	|	SBUX
+    45.92	|	CSCO
+
+
+    </p>
+    </details>
+
+    <details> <summary> Click here for results of total stock volume sold during the timeframe for each stock. </summary> 
+    <p>
+
+    ### AMD, Apple, and Amazon had the top 3 stock volume sold during the time period, while Starbucks, Qualcomm, and Netflix had the bottom 3 stock volume sold. ###
+
+    SUM(volume)	|	symbol
+    ---	|	---
+    1743091580	|	AMD
+    1403494880	|	AAPL
+    1263888930	|	AMZN
+    606528580	|	META
+    572840930	|	TSLA
+    501491710	|	MSFT
+    403275500	|	CSCO
+    159977959	|	NFLX
+    149552617	|	QCOM
+    121783689	|	SBUX
+
+
+
+    </p>
+    </details>
+
+8. Group the data by day or hour of day. Does the day of the week impact prices?
+
+    Code:
+    ```
+    --This query shows  the average price across all 21 trading days-worth of data. But we do not have day of the week here.
+    
+    SELECT datetime, AVG(price) FROM stocks
+    GROUP BY datetime
+    ORDER BY datetime desc;
+
+    --We use strftime to extract the day of the week from our datetime string to see if prices are higher on, say, Monday, than on Friday.
+    
+    SELECT 
+        strftime('%w', datetime) AS 'Weekday', 
+        ROUND(AVG(price),2) AS 'Avg Daily Price' 
+    FROM stocks
+    GROUP BY strftime('%w', datetime)
+    ORDER BY strftime('%w', datetime);
+    ```
+
+    <details> <summary> Click here for results of the final query </summary> 
+    <p>
+
+    ### Using strftime (String function time), we extracted the day of the week in our YYYY-MM-DD HH:MM:SS formatted date. Monday is 1, Tuesday is 2, etc. Here we can see that Friday had the highest average price across all our our stocks during the time frame, with Tuesday having the lowest price.  ###
+
+    Weekday	|	Avg Daily Price
+    ---|		---
+    1	|	222.34
+    2	|	219.94
+    3	|	225.68
+    4	|	225.99
+    5	|	226.32
+
+    </p>
+    </details>
+
+
+
