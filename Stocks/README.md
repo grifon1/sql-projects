@@ -938,5 +938,657 @@ You are asked by a company to help them make more informed decisions on investme
     </p>
     </details>
 
+9. Which of the rows have a price greater than the average of all prices in the dataset?
+
+    Code:
+    ```
+    SELECT * FROM stocks
+    WHERE price > (SELECT AVG(price) FROM stocks)
+    ORDER BY price desc;
+    ```
+
+    <details> <summary> Click here for results </summary> 
+    <p>
+
+    ### An embedded select statement in the where function lets us show only data where the price is higher than the overall average price. For reference, the average stock price is $223.97. ###
+
+    datetime	|	symbol|	name|	price|	volume|	open|	high|	low
+    ---	|	---|	---|	---|	---|	---|	---|	---
+    2022-08-15 00:00:00	|	TSLA|	TSLA|	927.96|	29786390|	905.36|	939.4|	903.69
+    2022-08-04 00:00:00	|	TSLA|	TSLA|	925.9|	24085440|	933|	940.82|	915
+    2022-08-03 00:00:00	|	TSLA|	TSLA|	922.19|	26697040|	915|	928.65|	903.45
+    2022-08-16 00:00:00	|	TSLA|	TSLA|	919.69|	29378770|	935|	944|	908.65
+    2022-08-17 00:00:00	|	TSLA|	TSLA|	911.99|	22921990|	910.19|	928.97|	900.1
+    2022-08-18 00:00:00	|	TSLA|	TSLA|	908.61|	15833510|	918|	919.5|	905.56
+    2022-08-02 00:00:00	|	TSLA|	TSLA|	901.76|	31859160|	882.01|	923.5|	878
+    2022-08-12 00:00:00	|	TSLA|	TSLA|	900.09|	26552430|	868.25|	900.48|	855.1
+    2022-08-01 00:00:00	|	TSLA|	TSLA|	891.83|	39014300|	903.83|	935.63|	885
+    2022-07-29 00:00:00	|	TSLA|	TSLA|	891.45|	31770960|	842.1|	894.96|	837.3
+    2022-08-19 00:00:00	|	TSLA|	TSLA|	890|	20465130|	897|	901.08|	877.5
+    2022-08-10 00:00:00	|	TSLA|	TSLA|	883.07|	31639620|	891.2|	892.53|	850.11
+    2022-08-08 00:00:00	|	TSLA|	TSLA|	871.27|	33121760|	885|	915.6|	867.26
+    2022-08-22 00:00:00	|	TSLA|	TSLA|	869.74|	18614450|	875.74|	877.2|	858.89
+    2022-08-05 00:00:00	|	TSLA|	TSLA|	864.51|	37724300|	908.01|	913.82|	856.63
+    2022-08-11 00:00:00	|	TSLA|	TSLA|	859.89|	23385020|	889.54|	894.71|	857.5
+    2022-08-09 00:00:00	|	TSLA|	TSLA|	850|	28748230|	870.88|	877.19|	838.06
+    2022-07-28 00:00:00	|	TSLA|	TSLA|	842.7|	28241000|	840.2|	849.9|	818.4
+    2022-07-27 00:00:00	|	TSLA|	TSLA|	824.46|	29370000|	791.43|	827.78|	785.37
+    2022-07-25 00:00:00	|	TSLA|	TSLA|	805.3|	21357840|	816.65|	822.44|	802.2
+    2022-07-26 00:00:00	|	TSLA|	TSLA|	776.58|	22273590|	799.54|	801.93|	768.79
+    2022-08-15 00:00:00	|	MSFT|	MSFT|	293.47|	18085650|	291|	294.18|	290.11
+    2022-08-16 00:00:00	|	MSFT|	MSFT|	292.71|	18102880|	291.99|	294.04|	290.42
+    2022-08-12 00:00:00	|	MSFT|	MSFT|	291.91|	22619680|	288.48|	291.91|	286.94
+    2022-08-17 00:00:00	|	MSFT|	MSFT|	291.32|	18253360|	289.74|	293.35|	289.47
+    2022-08-18 00:00:00	|	MSFT|	MSFT|	290.17|	17186190|	290.19|	291.91|	289.08
+    2022-08-10 00:00:00	|	MSFT|	MSFT|	289.16|	24687850|	288.17|	289.81|	286.94
+    2022-08-11 00:00:00	|	MSFT|	MSFT|	287.02|	20065940|	290.85|	291.21|	286.51
+    2022-08-19 00:00:00	|	MSFT|	MSFT|	286.15|	20570030|	288.9|	289.25|	285.56
+    2022-08-04 00:00:00	|	MSFT|	MSFT|	283.65|	18098670|	281.8|	283.8|	280.17
+    2022-08-05 00:00:00	|	MSFT|	MSFT|	282.91|	16774610|	279.15|	283.65|	278.68
+    2022-08-03 00:00:00	|	MSFT|	MSFT|	282.47|	23518870|	276.76|	283.5|	276.61
+    2022-08-09 00:00:00	|	MSFT|	MSFT|	282.3|	23405240|	279.64|	283.08|	277.61
+    2022-07-29 00:00:00	|	MSFT|	MSFT|	280.74|	32152750|	277.7|	282|	276.63
+    2022-08-08 00:00:00	|	MSFT|	MSFT|	280.32|	18757820|	284.05|	285.92|	279.32
+    2022-08-01 00:00:00	|	MSFT|	MSFT|	278.01|	21539580|	277.82|	281.28|	275.84
+    2022-08-22 00:00:00	|	MSFT|	MSFT|	277.75|	25061070|	282.08|	282.46|	277.22
+    2022-07-28 00:00:00	|	MSFT|	MSFT|	276.41|	33459330|	269.75|	277.84|	267.87
+    2022-08-02 00:00:00	|	MSFT|	MSFT|	274.82|	22754180|	276|	277.89|	272.38
+    2022-07-27 00:00:00	|	MSFT|	MSFT|	268.74|	45994050|	261.16|	270.05|	258.85
+    2022-07-25 00:00:00	|	MSFT|	MSFT|	258.83|	21056000|	261|	261.5|	256.81
+    2022-07-26 00:00:00	|	MSFT|	MSFT|	251.9|	39347960|	259.86|	259.88|	249.57
+    2022-08-12 00:00:00	|	NFLX|	NFLX|	249.3|	6098531|	244.81|	249.41|	243.76
+    2022-08-15 00:00:00	|	NFLX|	NFLX|	249.11|	6527391|	248.11|	251.99|	247.51
+    2022-08-16 00:00:00	|	NFLX|	NFLX|	245.69|	5136806|	247.16|	249.29|	244.03
+    2022-08-18 00:00:00	|	NFLX|	NFLX|	245.17|	5280387|	241.96|	246.48|	239.28
+    2022-08-10 00:00:00	|	NFLX|	NFLX|	244.11|	9254760|	236.99|	244.54|	236.6
+    2022-08-11 00:00:00	|	NFLX|	NFLX|	242.7|	8780062|	244.68|	251.62|	241.51
+    2022-08-19 00:00:00	|	NFLX|	NFLX|	241.16|	7504707|	240.95|	243.29|	235.68
+    2022-08-17 00:00:00	|	NFLX|	NFLX|	241.15|	5627224|	241.18|	244.24|	237.56
+    2022-08-08 00:00:00	|	NFLX|	NFLX|	233.49|	10997410|	227.49|	241.96|	226.41
+    2022-08-09 00:00:00	|	NFLX|	NFLX|	229.94|	6181194|	231.62|	232.2|	224.65
+    2022-08-04 00:00:00	|	NFLX|	NFLX|	229.91|	7142741|	227.68|	232.07|	225.05
+    2022-08-05 00:00:00	|	NFLX|	NFLX|	226.78|	5539733|	225.3|	228.62|	222.87
+    2022-07-27 00:00:00	|	NFLX|	NFLX|	226.75|	10508390|	216.48|	227.78|	214.58
+    2022-08-03 00:00:00	|	NFLX|	NFLX|	226.73|	6400701|	224.79|	228.1|	222.42
+    2022-08-22 00:00:00	|	NFLX|	NFLX|	226.54|	8630094|	232.55|	233.48|	224.59
+    2022-08-01 00:00:00	|	NFLX|	NFLX|	226.21|	5525044|	223.1|	228.39|	221
+    2022-07-28 00:00:00	|	NFLX|	NFLX|	226.02|	8972738|	224.6|	228.1|	219.67
+    2022-07-29 00:00:00	|	NFLX|	NFLX|	224.9|	9064937|	223.29|	230.75|	222.4
 
 
+    </p>
+    </details>
+
+10. In addition to the built-in aggregate functions, explore ways to calculate other key statistics about the data, such as the median or variance.
+
+    * Method 1: Calculating median price 
+        
+        Code:
+        ```
+        SELECT symbol, 
+        price, 
+        PERCENT_RANK() OVER(
+            ORDER BY price
+        ) LENGTHPERCENTRANK
+        FROM stocks;
+        ```
+        <details> <summary> Click here for results of the first method to calculate median </summary> 
+        <p>
+
+        ### This method ranks each stock price in order, giving them a "percent rank". In a table with an even number of rows, you would need to take the average of the two values that border 0.50. Here, you can see that the AAPL price of 152.95 has a rank of 0.498. Next ,the QCOM price of 153.25 has a rank of 0.502.   ###
+
+        ### The average of these two values is 153.10. Thus, the median price is $153.10. ###
+
+        symbol|	price|	LENGTHPERCENTRANK
+        ---|	---|	---
+        CSCO|	43.83|	0
+        CSCO|	44.34|	0.00478468899521531
+        CSCO|	44.64|	0.00956937799043062
+        CSCO|	44.92|	0.0143540669856459
+        CSCO|	44.92|	0.0143540669856459
+        CSCO|	45.01|	0.0239234449760766
+        CSCO|	45.02|	0.0287081339712919
+        CSCO|	45.28|	0.0334928229665072
+        CSCO|	45.37|	0.0382775119617225
+        CSCO|	45.38|	0.0430622009569378
+        CSCO|	45.62|	0.0478468899521531
+        CSCO|	45.71|	0.0526315789473684
+        CSCO|	45.9|	0.0574162679425837
+        CSCO|	46.02|	0.062200956937799
+        CSCO|	46.59|	0.0669856459330144
+        CSCO|	46.61|	0.0717703349282297
+        CSCO|	46.66|	0.076555023923445
+        CSCO|	46.77|	0.0813397129186603
+        CSCO|	47.71|	0.0861244019138756
+        CSCO|	48.7|	0.0909090909090909
+        CSCO|	49.37|	0.0956937799043062
+        SBUX|	80.31|	0.100478468899522
+        SBUX|	81.5|	0.105263157894737
+        SBUX|	82.96|	0.110047846889952
+        SBUX|	83.71|	0.114832535885167
+        SBUX|	84.67|	0.119617224880383
+        SBUX|	84.78|	0.124401913875598
+        SBUX|	84.84|	0.129186602870813
+        SBUX|	84.91|	0.133971291866029
+        SBUX|	84.95|	0.138755980861244
+        AMD|	85.25|	0.143540669856459
+        SBUX|	85.72|	0.148325358851675
+        SBUX|	85.73|	0.15311004784689
+        SBUX|	86.49|	0.157894736842105
+        SBUX|	86.88|	0.162679425837321
+        SBUX|	86.92|	0.167464114832536
+        SBUX|	87.27|	0.172248803827751
+        SBUX|	87.27|	0.172248803827751
+        AMD|	87.54|	0.181818181818182
+        SBUX|	88.31|	0.186602870813397
+        SBUX|	88.35|	0.191387559808612
+        SBUX|	88.55|	0.196172248803828
+        SBUX|	89.16|	0.200956937799043
+        SBUX|	89.4|	0.205741626794258
+        AMD|	89.82|	0.210526315789474
+        AMD|	91.67|	0.215311004784689
+        AMD|	92.84|	0.220095693779904
+        AMD|	94.47|	0.22488038277512
+        AMD|	95.54|	0.229665071770335
+        AMD|	95.95|	0.23444976076555
+        AMD|	96.78|	0.239234449760766
+        AMD|	98.09|	0.244019138755981
+        AMD|	98.12|	0.248803827751196
+        AMD|	98.27|	0.253588516746411
+        AMD|	99.05|	0.258373205741627
+        AMD|	99.29|	0.263157894736842
+        AMD|	100.07|	0.267942583732057
+        AMD|	100.2|	0.272727272727273
+        AMD|	100.44|	0.277511961722488
+        AMD|	100.83|	0.282296650717703
+        AMD|	101.01|	0.287081339712919
+        AMD|	102.31|	0.291866028708134
+        AMD|	103.91|	0.296650717703349
+        AMZN|	114.81|	0.301435406698565
+        AMZN|	120.97|	0.30622009569378
+        AMZN|	121.14|	0.311004784688995
+        AMZN|	122.28|	0.315789473684211
+        AMZN|	133.22|	0.320574162679426
+        AMZN|	134.16|	0.325358851674641
+        AMZN|	134.95|	0.330143540669856
+        AMZN|	135.39|	0.334928229665072
+        AMZN|	137.83|	0.339712918660287
+        AMZN|	138.23|	0.344497607655502
+        AMZN|	139.41|	0.349282296650718
+        AMZN|	139.52|	0.354066985645933
+        AMZN|	140.64|	0.358851674641148
+        AMZN|	140.8|	0.363636363636364
+        QCOM|	141.61|	0.368421052631579
+        AMZN|	142.1|	0.373205741626794
+        AMZN|	142.3|	0.37799043062201
+        QCOM|	142.51|	0.382775119617225
+        AMZN|	142.57|	0.38755980861244
+        AMZN|	142.69|	0.392344497607655
+        AMZN|	143.18|	0.397129186602871
+        AMZN|	143.55|	0.401913875598086
+        AMZN|	144.78|	0.406698564593301
+        QCOM|	145.06|	0.411483253588517
+        QCOM|	146.45|	0.416267942583732
+        QCOM|	146.99|	0.421052631578947
+        QCOM|	147.03|	0.425837320574163
+        QCOM|	147.43|	0.430622009569378
+        QCOM|	147.6|	0.435406698564593
+        QCOM|	147.81|	0.440191387559809
+        QCOM|	147.83|	0.444976076555024
+        QCOM|	148.53|	0.449760765550239
+        QCOM|	149.16|	0.454545454545455
+        QCOM|	149.97|	0.45933014354067
+        QCOM|	150.03|	0.464114832535885
+        QCOM|	150.21|	0.468899521531101
+        QCOM|	151.01|	0.473684210526316
+        QCOM|	151.29|	0.478468899521531
+        QCOM|	151.38|	0.483253588516747
+        AAPL|	151.6|	0.488038277511962
+        QCOM|	152.13|	0.492822966507177
+        AAPL|	152.95|	0.497607655502392
+        QCOM|	153.25|	0.502392344497608
+        QCOM|	153.42|	0.507177033492823
+        AAPL|	156.79|	0.511961722488038
+        AAPL|	157.35|	0.516746411483254
+        META|	159.1|	0.521531100478469
+        META|	159.15|	0.526315789473684
+        META|	159.93|	0.5311004784689
+        AAPL|	160.01|	0.535885167464115
+        META|	160.19|	0.54066985645933
+        META|	160.72|	0.545454545454545
+        AAPL|	161.51|	0.550239234449761
+        AAPL|	162.51|	0.555023923444976
+        META|	163.05|	0.559808612440191
+        AAPL|	164.87|	0.564593301435407
+        AAPL|	164.92|	0.569377990430622
+        AAPL|	165.35|	0.574162679425837
+        AAPL|	165.81|	0.578947368421053
+        AAPL|	166.13|	0.583732057416268
+        META|	166.65|	0.588516746411483
+        META|	167.11|	0.593301435406699
+        AAPL|	167.57|	0.598086124401914
+        META|	167.96|	0.602870813397129
+        AAPL|	168.49|	0.607655502392344
+        META|	168.53|	0.61244019138756
+        META|	168.8|	0.617224880382775
+        AAPL|	169.24|	0.62200956937799
+        META|	169.58|	0.626794258373206
+        META|	170.25|	0.631578947368421
+        META|	170.57|	0.636363636363636
+        AAPL|	171.52|	0.641148325358852
+        AAPL|	172.1|	0.645933014354067
+        AAPL|	173.03|	0.650717703349282
+        AAPL|	173.19|	0.655502392344498
+        AAPL|	174.15|	0.660287081339713
+        AAPL|	174.55|	0.665071770334928
+        META|	174.66|	0.669856459330144
+        META|	174.85|	0.674641148325359
+        META|	177.49|	0.679425837320574
+        META|	178.34|	0.68421052631579
+        META|	179.47|	0.688995215311005
+        META|	180.5|	0.69377990430622
+        META|	180.89|	0.698564593301435
+        NFLX|	213.91|	0.703349282296651
+        NFLX|	218.51|	0.708133971291866
+        NFLX|	221.42|	0.712918660287081
+        NFLX|	224.9|	0.717703349282297
+        NFLX|	226.02|	0.722488038277512
+        NFLX|	226.21|	0.727272727272727
+        NFLX|	226.54|	0.732057416267943
+        NFLX|	226.73|	0.736842105263158
+        NFLX|	226.75|	0.741626794258373
+        NFLX|	226.78|	0.746411483253589
+        NFLX|	229.91|	0.751196172248804
+        NFLX|	229.94|	0.755980861244019
+        NFLX|	233.49|	0.760765550239234
+        NFLX|	241.15|	0.76555023923445
+        NFLX|	241.16|	0.770334928229665
+        NFLX|	242.7|	0.77511961722488
+        NFLX|	244.11|	0.779904306220096
+        NFLX|	245.17|	0.784688995215311
+        NFLX|	245.69|	0.789473684210526
+        NFLX|	249.11|	0.794258373205742
+        NFLX|	249.3|	0.799043062200957
+        MSFT|	251.9|	0.803827751196172
+        MSFT|	258.83|	0.808612440191388
+        MSFT|	268.74|	0.813397129186603
+        MSFT|	274.82|	0.818181818181818
+        MSFT|	276.41|	0.822966507177033
+        MSFT|	277.75|	0.827751196172249
+        MSFT|	278.01|	0.832535885167464
+        MSFT|	280.32|	0.837320574162679
+        MSFT|	280.74|	0.842105263157895
+        MSFT|	282.3|	0.84688995215311
+        MSFT|	282.47|	0.851674641148325
+        MSFT|	282.91|	0.856459330143541
+        MSFT|	283.65|	0.861244019138756
+        MSFT|	286.15|	0.866028708133971
+        MSFT|	287.02|	0.870813397129187
+        MSFT|	289.16|	0.875598086124402
+        MSFT|	290.17|	0.880382775119617
+        MSFT|	291.32|	0.885167464114833
+        MSFT|	291.91|	0.889952153110048
+        MSFT|	292.71|	0.894736842105263
+        MSFT|	293.47|	0.899521531100478
+        TSLA|	776.58|	0.904306220095694
+        TSLA|	805.3|	0.909090909090909
+        TSLA|	824.46|	0.913875598086124
+        TSLA|	842.7|	0.91866028708134
+        TSLA|	850|	0.923444976076555
+        TSLA|	859.89|	0.92822966507177
+        TSLA|	864.51|	0.933014354066986
+        TSLA|	869.74|	0.937799043062201
+        TSLA|	871.27|	0.942583732057416
+        TSLA|	883.07|	0.947368421052632
+        TSLA|	890|	0.952153110047847
+        TSLA|	891.45|	0.956937799043062
+        TSLA|	891.83|	0.961722488038278
+        TSLA|	900.09|	0.966507177033493
+        TSLA|	901.76|	0.971291866028708
+        TSLA|	908.61|	0.976076555023924
+        TSLA|	911.99|	0.980861244019139
+        TSLA|	919.69|	0.985645933014354
+        TSLA|	922.19|	0.990430622009569
+        TSLA|	925.9|	0.995215311004785
+        TSLA|	927.96|	1
+
+        </p>
+        </details>
+
+    * Method 2: Calculating median price
+        
+        Code:
+        ```
+        SELECT AVG(price)
+        FROM (SELECT price
+            FROM stocks
+            ORDER BY price
+            --Change number after % if Row count is odd = 1, Row count is even = 2
+            LIMIT (2 - (SELECT COUNT(*) FROM stocks) % 2) 
+                        OFFSET (SELECT (COUNT(*) - 1) / 2
+                    FROM stocks));
+        ```
+
+        <details> <summary> Click here for results of the second method to calculate median </summary> 
+        <p>
+
+        ### This query is a more automated way of calculating median, but you need to change a number in the calculation based on whether the number of rows in your table is odd (1) or even (2). ###
+
+        |AVG(price)|	
+        |---|
+        |153.1|	
+
+        </p>
+        </details>
+11. Calculating variance of the dataset.
+
+    Code:
+    ```
+    SELECT SUM((price-(SELECT AVG(price) FROM stocks)) *
+			(price-(SELECT AVG(price) FROM stocks)) ) / (COUNT(price)-1) AS variance 
+    FROM stocks;
+    ```
+
+    <details> <summary> Click here for variance results </summary> 
+        
+    <p>
+
+    ### Our sample variance is 52244.76. In SQLite, we can calculate variance of the dataset, but without a square root function, we are not able to calculate standard deviation. To calculate population variance, simply remove the "-1" from the query above. Otherwise, the query calculates sample variance. ###
+
+    |variance|	
+    |---|
+    |52244.7571763955|	
+
+    </p>
+    </details>
+
+12. Refactor the data into two tables - stock_info to store general info about the stock itself (i.e. symbol, name) and stock_prices to store the collected data on price (i.e. symbol, datetime, price).
+
+    Code:
+    ```
+    CREATE TABLE IF NOT EXISTS stock_info AS 
+    SELECT symbol, name
+    FROM stocks;
+
+    --Data carried over from the main table had many multiple duplicates of stock names, so we need to clean them up. 
+    DELETE FROM stock_info
+    WHERE rowid NOT IN (
+        SELECT MIN(rowid)
+        FROM stock_info
+    GROUP BY symbol);
+
+    --stock_prices has all the pricing data, but no company identifier besides the stock symbol.
+    CREATE TABLE IF NOT EXISTS stock_prices AS 
+    SELECT symbol, datetime, price, volume, open, high, low
+    FROM stocks;
+
+
+    --Adding in names to stock symbols
+    UPDATE stock_info
+    SET name = "Apple"
+    WHERE symbol = "AAPL";
+
+    UPDATE stock_info
+    SET name = "Starbucks"
+    WHERE symbol = "SBUX";
+
+    UPDATE stock_info
+    SET name = "Microsoft"
+    WHERE symbol = "MSFT";
+
+    UPDATE stock_info
+    SET name = "Cisco"
+    WHERE symbol = "CSCO";
+
+    UPDATE stock_info
+    SET name = "Qualcomm"
+    WHERE symbol = "QCOM";
+
+    UPDATE stock_info
+    SET name = "Meta"
+    WHERE symbol = "META";
+
+    UPDATE stock_info
+    SET name = "Amazon"
+    WHERE symbol = "AMZN";
+
+    UPDATE stock_info
+    SET name = "Tesla"
+    WHERE symbol = "TSLA";
+
+    UPDATE stock_info
+    SET name = "AMD"
+    WHERE symbol = "AMD";
+
+    UPDATE stock_info
+    SET name = "Netflix"
+    WHERE symbol = "NFLX";
+
+    --In larger databases, separating the data into two tables like this will save space and query time.
+    SELECT price, name FROM stock_info
+    INNER JOIN stock_prices 
+        on stock_info.symbol = stock_prices.symbol;
+    ```
+
+    <details> <summary> Click here for results of the joined stocks table query </summary> 
+        
+    <p>
+
+    ### Having tables that contain the names of stock symbols separate from the price data will save data storage space and query time. ###
+
+    price	|	name
+    ---	|	---
+    151.6	|	Apple
+    152.95	|	Apple
+    156.79	|	Apple
+    157.35	|	Apple
+    160.01	|	Apple
+    161.51	|	Apple
+    162.51	|	Apple
+    164.87	|	Apple
+    164.92	|	Apple
+    165.35	|	Apple
+    165.81	|	Apple
+    166.13	|	Apple
+    167.57	|	Apple
+    168.49	|	Apple
+    169.24	|	Apple
+    171.52	|	Apple
+    172.1	|	Apple
+    173.03	|	Apple
+    173.19	|	Apple
+    174.15	|	Apple
+    174.55	|	Apple
+    80.31	|	Starbucks
+    81.5	|	Starbucks
+    82.96	|	Starbucks
+    83.71	|	Starbucks
+    84.67	|	Starbucks
+    84.78	|	Starbucks
+    84.84	|	Starbucks
+    84.91	|	Starbucks
+    84.95	|	Starbucks
+    85.72	|	Starbucks
+    85.73	|	Starbucks
+    86.49	|	Starbucks
+    86.88	|	Starbucks
+    86.92	|	Starbucks
+    87.27	|	Starbucks
+    87.27	|	Starbucks
+    88.31	|	Starbucks
+    88.35	|	Starbucks
+    88.55	|	Starbucks
+    89.16	|	Starbucks
+    89.4	|	Starbucks
+    251.9	|	Microsoft
+    258.83	|	Microsoft
+    268.74	|	Microsoft
+    274.82	|	Microsoft
+    276.41	|	Microsoft
+    277.75	|	Microsoft
+    278.01	|	Microsoft
+    280.32	|	Microsoft
+    280.74	|	Microsoft
+    282.3	|	Microsoft
+    282.47	|	Microsoft
+    282.91	|	Microsoft
+    283.65	|	Microsoft
+    286.15	|	Microsoft
+    287.02	|	Microsoft
+    289.16	|	Microsoft
+    290.17	|	Microsoft
+    291.32	|	Microsoft
+    291.91	|	Microsoft
+    292.71	|	Microsoft
+    293.47	|	Microsoft
+    43.83	|	Cisco
+    44.34	|	Cisco
+    44.64	|	Cisco
+    44.92	|	Cisco
+    44.92	|	Cisco
+    45.01	|	Cisco
+    45.02	|	Cisco
+    45.28	|	Cisco
+    45.37	|	Cisco
+    45.38	|	Cisco
+    45.62	|	Cisco
+    45.71	|	Cisco
+    45.9	|	Cisco
+    46.02	|	Cisco
+    46.59	|	Cisco
+    46.61	|	Cisco
+    46.66	|	Cisco
+    46.77	|	Cisco
+    47.71	|	Cisco
+    48.7	|	Cisco
+    49.37	|	Cisco
+    141.61	|	Qualcomm
+    142.51	|	Qualcomm
+    145.06	|	Qualcomm
+    146.45	|	Qualcomm
+    146.99	|	Qualcomm
+    147.03	|	Qualcomm
+    147.43	|	Qualcomm
+    147.6	|	Qualcomm
+    147.81	|	Qualcomm
+    147.83	|	Qualcomm
+    148.53	|	Qualcomm
+    149.16	|	Qualcomm
+    149.97	|	Qualcomm
+    150.03	|	Qualcomm
+    150.21	|	Qualcomm
+    151.01	|	Qualcomm
+    151.29	|	Qualcomm
+    151.38	|	Qualcomm
+    152.13	|	Qualcomm
+    153.25	|	Qualcomm
+    153.42	|	Qualcomm
+    159.1	|	Meta
+    159.15	|	Meta
+    159.93	|	Meta
+    160.19	|	Meta
+    160.72	|	Meta
+    163.05	|	Meta
+    166.65	|	Meta
+    167.11	|	Meta
+    167.96	|	Meta
+    168.53	|	Meta
+    168.8	|	Meta
+    169.58	|	Meta
+    170.25	|	Meta
+    170.57	|	Meta
+    174.66	|	Meta
+    174.85	|	Meta
+    177.49	|	Meta
+    178.34	|	Meta
+    179.47	|	Meta
+    180.5	|	Meta
+    180.89	|	Meta
+    114.81	|	Amazon
+    120.97	|	Amazon
+    121.14	|	Amazon
+    122.28	|	Amazon
+    133.22	|	Amazon
+    134.16	|	Amazon
+    134.95	|	Amazon
+    135.39	|	Amazon
+    137.83	|	Amazon
+    138.23	|	Amazon
+    139.41	|	Amazon
+    139.52	|	Amazon
+    140.64	|	Amazon
+    140.8	|	Amazon
+    142.1	|	Amazon
+    142.3	|	Amazon
+    142.57	|	Amazon
+    142.69	|	Amazon
+    143.18	|	Amazon
+    143.55	|	Amazon
+    144.78	|	Amazon
+    776.58	|	Tesla
+    805.3	|	Tesla
+    824.46	|	Tesla
+    842.7	|	Tesla
+    850	|	Tesla
+    859.89	|	Tesla
+    864.51	|	Tesla
+    869.74	|	Tesla
+    871.27	|	Tesla
+    883.07	|	Tesla
+    890	|	Tesla
+    891.45	|	Tesla
+    891.83	|	Tesla
+    900.09	|	Tesla
+    901.76	|	Tesla
+    908.61	|	Tesla
+    911.99	|	Tesla
+    919.69	|	Tesla
+    922.19	|	Tesla
+    925.9	|	Tesla
+    927.96	|	Tesla
+    85.25	|	AMD
+    87.54	|	AMD
+    89.82	|	AMD
+    91.67	|	AMD
+    92.84	|	AMD
+    94.47	|	AMD
+    95.54	|	AMD
+    95.95	|	AMD
+    96.78	|	AMD
+    98.09	|	AMD
+    98.12	|	AMD
+    98.27	|	AMD
+    99.05	|	AMD
+    99.29	|	AMD
+    100.07	|	AMD
+    100.2	|	AMD
+    100.44	|	AMD
+    100.83	|	AMD
+    101.01	|	AMD
+    102.31	|	AMD
+    103.91	|	AMD
+    213.91	|	Netflix
+    218.51	|	Netflix
+    221.42	|	Netflix
+    224.9	|	Netflix
+    226.02	|	Netflix
+    226.21	|	Netflix
+    226.54	|	Netflix
+    226.73	|	Netflix
+    226.75	|	Netflix
+    226.78	|	Netflix
+    229.91	|	Netflix
+    229.94	|	Netflix
+    233.49	|	Netflix
+    241.15	|	Netflix
+    241.16	|	Netflix
+    242.7	|	Netflix
+    244.11	|	Netflix
+    245.17	|	Netflix
+    245.69	|	Netflix
+    249.11	|	Netflix
+    249.3	|	Netflix
+	
+
+    </p>
+    </details>

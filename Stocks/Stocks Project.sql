@@ -322,7 +322,7 @@ ORDER BY strftime('%w', datetime);
 
 
 --Q9. Which of the rows have a price greater than the average of all prices in the dataset?
---A9. An embeded select statement in the where function lets use show only data where the price is higher than the overall average price.
+--A9. An embedded select statement in the where function lets us show only data where the price is higher than the overall average price.
 SELECT * FROM stocks
 WHERE price > (SELECT AVG(price) FROM stocks)
 ORDER BY price desc;
@@ -345,21 +345,23 @@ SELECT AVG(price)
 FROM (SELECT price
 	FROM stocks
 	ORDER BY price
-	LIMIT (2 - (SELECT COUNT(*) FROM stocks) % 2) --Change number after % if Row count is odd = 1, Row count is even = 2
+	--Change number after % if Row count is odd = 1, Row count is even = 2
+	LIMIT (2 - (SELECT COUNT(*) FROM stocks) % 2) 
 	OFFSET (SELECT (COUNT(*) - 1) / 2
 			FROM stocks));
 			
 			
 --Q10.2 Calculating Variance
 --Unable to calculate std deviation (which is just the square root of variance) because we lack the sqrt function in SQLite. Can possibly add it by using a compile-time function SQLITE_ENABLE_MATH_FUNCTIONS
-SELECT SUM((price-(SELECT AVG(price) FROM stocks))*
+SELECT SUM((price-(SELECT AVG(price) FROM stocks)) *
 			(price-(SELECT AVG(price) FROM stocks)) ) / (COUNT(price)-1) AS variance --Remove the -1 if calculating population variance. Leave it if doing sample variance.
 FROM stocks;
 --A10.2. Variance for the overall stock price of this sample of stocks is 52244.76
 --------Used n-1 formula because this is a sample of stocks data, not a complete population containing ALL data.
 
 
---Q11. Refactor the data in 2 tables - stock_info to store general info about the stock itself (i.e. symbol, name) and stock_prices to store the collected data on price (i.e. symbol, datetime, price).
+--Q11. Refactor the data in 2 tables - stock_info to store general info about the stock itself (i.e. symbol, name) 
+--and stock_prices to store the collected data on price (i.e. symbol, datetime, price).
 CREATE TABLE IF NOT EXISTS stock_info AS 
 SELECT symbol, name
 FROM stocks;
